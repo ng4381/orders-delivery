@@ -1,0 +1,1 @@
+liquibase --url="jdbc:mysql://localhost:3306/ktm_db?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC" --username=root --password=123qweASD --classpath="mysql-connector-java-8.0.27.jar" --changeLogFile=db.changelog-master.xml update
