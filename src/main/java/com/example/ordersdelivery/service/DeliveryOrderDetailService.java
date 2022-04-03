@@ -22,4 +22,7 @@ public class DeliveryOrderDetailService {
         return deliveryOrderDetailRepository.getDeliveryOrderDetailDTO();
     }
 
+    public DeliveryOrderDetail getDeliveryOrderDetailById(Long id) {
+        return deliveryOrderDetailRepository.getById(id);
+    }
 }

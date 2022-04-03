@@ -1,9 +1,8 @@
 package com.example.ordersdelivery.dto;
 
 public interface RouteDetailsDTO {
-    Long getId();
-    Long getDeliveryOrderId();
-    String getDeliveryOrderExtOrderId();
+    Long getRouteId();
+    Long getDeliveryOrderDetailId();
     String getProductName();
     int getQty();
 }

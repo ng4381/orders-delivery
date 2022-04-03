@@ -21,6 +21,9 @@ public class Route {
 
     private LocalDate ETA;
     private LocalDate ETD;
+
+    @Column(name = "delivery_from")
     private String from;
+    @Column(name = "delivery_to")
     private String to;
 }

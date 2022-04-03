@@ -186,4 +186,15 @@ http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibas
                          tableName="deliveryorder"/>
     </changeSet>
 
+    <changeSet id="cr=108" author="Nikita">
+        <renameColumn  columnDataType="varchar(250)"
+                       newColumnName="delivery_from"
+                       oldColumnName="from"
+                       tableName="route"/>
+        <renameColumn  columnDataType="varchar(250)"
+                       newColumnName="delivery_to"
+                       oldColumnName="to"
+                       tableName="route"/>
+    </changeSet>
+
 </databaseChangeLog>

@@ -28,191 +28,100 @@
 
         </div>
 
-        <div class="row">
+        <div class="row" id="main_row">
             <div class="col-8">
 
-                <h2>Order details</h2>
-
-                
+                <h3>Delivery orders</h3>
 
                 <table id="deliveryOrders" class="table">
-                    
 
                 </table>
             </div>
 
-            <div class="col">
-                <h2>Routes</h2>
+            <div class="col" id="route_tables">
+                <h3>Routes</h3>
+
+                <table class="table">
+
+                </table>
+
             </div>
 
         </div>
     </div>
+
+    <script type="text/javascript" th:src="@{/js/urls.js}"></script>
+    <script type="text/javascript" th:src="@{/js/routes.js}"></script>
+    <script type="text/javascript" th:src="@{/js/order_details.js}"></script>
+
     <script>
 
-        var urlRoutes = "http://localhost:8077/routes";
-        var urlDeliveryOrderDetails = "http://localhost:8077/delivery-orders-details";
 
 
-        function isEmail() {
-            console.log("asdfasfdas");
+        //==========================
+
+        function subFromRoute(id, qty) {
+            var v = $("#rd_" + id).val();
+            subFromCurrentRoute(getRouteId(), v.id, qty);
         }
 
-        function updateRouteList() {
-            var jqxhr = $.getJSON(urlRoutes, function (data) {
-                console.log("success  url = " + urlRoutes);
+        function sub_1(id) {
+            subFromRoute(id, 1);
+        }
 
-                //$('#routes').find('a').remove();
+        function sub_10(id) {
+            subFromRoute(id, 10);
+        }
 
-                $('#routes').append("<li><a class='dropdown-item' href='#' id='new_route' onclick='isEmail()' >New Route ...</a></li>");
+        function sub_50(id) {
+            subFromRoute(id, 50);
+        }
 
-                $.each(data, function (i, v) {
+        //==========================
 
-                    var id_a = 'id_a_' + i;
 
-                    var htmlTr = '<li><a id=' + id_a + ' class="dropdown-item" href="#""> Route № ' + v.id + '</a></li>';
+        function addToRoute(id, qty) {
+            var v = $("#idTr_" + id).val();
+            addToCurrentRoute(getRouteId(), v.id, qty);
+        }
 
-                    $('#routes').append(htmlTr);
-                    $('#' + id_a).val(v);
+        function add_1(id) {
+            addToRoute(id, 1);
+        }
 
-                })
+        function add_10(id) {
+            addToRoute(id, 10);
+        }
 
+        function add_50(id) {
+            addToRoute(id, 50);
+        }
+
+         //==========================
+
+        function addToCurrentRoute(routeId, deliveryOrderDetailId, qty) {
+
+            $.ajax({
+                url: urlPostRouteDtetail + '/' + routeId + '/' + deliveryOrderDetailId + '/' + qty,
+                type: "POST",
+                success: function () {
+                    updateOrderDetails();
+                    updateRouteList();
+                }
             })
-                .done(function () {
-                    console.log("second success");
-                })
-                .fail(function () {
-                    console.log("error");
-                })
-                .always(function () {
-                    console.log("complete");
-                });
 
-            jqxhr.always(function () {
-                console.log("second complete");
-            });
-
-        }
-
-
-
-        function updateTable() {
-
-            var jqxhr = $.getJSON(urlDeliveryOrderDetails, function (data) {
-                console.log("success  url = " + urlDeliveryOrderDetails);
-
-                $('#deliveryOrders').find('tr').remove();
-
-                $('#deliveryOrders').append(
-                    '<thead class="table-dark"><tr>' +
-                    '<th>deliveryOrderId</th>' +
-                    '<th>deliveryOrderExtOrderId</th>' +
-                    '<th>productName</th>' +
-                    '<th>qty (total)</th>' +
-                    '<th>qty (remain)</th>' +
-                    '<th>qty</th>' +
-                    '</tr></thead>');
-
-                $.each(data, function (i, v) {
-
-                    var idTr = 'idTr_' + i;
-                    var idInput = 'idInput_' + i;
-
-                    var htmlTr = '<tr id= ' + idTr + '><td>' + v.deliveryOrderId + '</td>'
-                        + '<td>' + v.deliveryOrderExtOrderId + '</td>'
-                        + '<td>' + v.productName + '</td>'
-                        + '<td>' + v.qty + '</td>'
-                        + '<td> - </td>'
-                        + '<td> <input id=' + idInput + ' type="number" class="form-control"/> </td>'
-                        + '</tr>';
-
-                    $('#deliveryOrders').append(htmlTr);
-                    $('#' + idTr).val(v);
-                    $('#' + idInput).val(v);
-
-                })
-
-            })
-                .done(function () {
-                    console.log("second success");
-
-
-                })
-                .fail(function () {
-                    console.log("error");
-                })
-                .always(function () {
-                    console.log("complete");
-                });
-
-            jqxhr.always(function () {
-                console.log("second complete");
-            });
-
-
-
-            console.log(JSON.stringify());
-        }
-
-
-        function createNewRoute() {
-            updateRouteList();
         }
 
         $(document).ready(function () {
 
             $('#getData').click(function () {
-                updateTable();
+                updateOrderDetails();
                 updateRouteList();
             })
 
             $('#createNewRoute').click(function () {
-                console.log("creating new route...");
                 createNewRoute();
             })
-
-
-            /*
- 
-            $('#test').click(function(){
-                $('#deliveryOrders').find('tr').remove();
-            })
- 
- 
-            $('#postData').click(function(){
- 
-                $('#deliveryOrders').find("tr").each(function(){
-                    $(this).val().qtyDone = parseInt($(this).find('input').val());
-                })
- 
-                var arr = [];
- 
-                $('#deliveryOrders').find("tr").each(function(){
-                    var rowVal = $(this).val();
-                    if(rowVal != '' && rowVal.qtyDone > 0) {
-                        arr.push($(this).val());
-                    }
-                })
- 
-                var arrJson = JSON.stringify (arr);
- 
-                console.log(arr);
-                console.log(arrJson);
- 
-                $.ajax({
-                    url:url,
-                    type:"POST",
-                    data:arrJson,
-                    contentType:"application/json; charset=utf-8",
-                    dataType:"json",
-                    success: function(){
- 
-                    }
-                })
- 
-            });
-            */
-
-
 
         });
     </script>
