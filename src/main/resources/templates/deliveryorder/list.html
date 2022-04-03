@@ -18,13 +18,14 @@
 
     <div class="container">
 
-        <p id="mylog"></p>
+
 
         <div class="row">
 
             <div>
                 <button id="getData" class="btn btn-primary">Update</button>
                 <button id="createNewRoute" class="btn btn-primary">Create new route</button>
+                <button id="testbtn" class="btn btn-primary">test</button>
 
             </div>
 
@@ -52,84 +53,69 @@
         </div>
     </div>
 
-    <script type="text/javascript" th:src="@{/js/urls.js}"></script>
-<!--    <script type="text/javascript" th:src="@{/js/routes.js}"></script>-->
-    <script type="text/javascript" src="/js/routes.js"></script>
-    <script type="text/javascript" th:src="@{/js/order_details.js}"></script>
+    <script type="text/javascript" th:src="@{/js/constants.js}"></script>
+    <script type="text/javascript" th:src="@{/js/urls_1.js}"></script>
+    <script type="text/javascript" th:src="@{/js/routes_.js}"></script>
+    <script type="text/javascript" th:src="@{/js/order_details_.js}"></script>
 
     <script>
 
         console.log("111222333");
 
-        var rd_map = new Map();
-
         //==========================
 
-        function subFromRoute(id, qty) {
-            var v = $("#rd_" + id).val();
-            subFromCurrentRoute(getRouteId(), v.id, qty);
+        function subRouteDetail(id, qty) {
+            var _rd = rd_arr.filter(el => el.routeDetailId == id);
+            var _od = od_arr.filter(el => el.id == _rd[0].deliveryOrderDetailId);
+            postRouteDetail(_rd[0].routeId, _od[0], qty);
         }
 
         function sub_1(id) {
-            subFromRoute(id, 1);
+            subRouteDetail(id, -1);
         }
 
         function sub_10(id) {
-            subFromRoute(id, 10);
+            subRouteDetail(id, -10);
         }
 
         function sub_50(id) {
-            subFromRoute(id, 50);
+            subRouteDetail(id, -50);
         }
 
         //==========================
 
 
-        function addToRoute(id, qty) {
-            var v = $("#idTr_" + id).val();
-            addToCurrentRoute(getRouteId(), v.id, qty);
+        function addRouteDetail(id, qty) {
+            var _od = od_arr.filter(el => el.id == id);
+            postRouteDetail(getRouteId(), _od[0], qty);
         }
 
         function add_1(id) {
-            addToRoute(id, 1);
+            addRouteDetail(id, 1);
         }
 
         function add_10(id) {
-            addToRoute(id, 10);
+            addRouteDetail(id, 10);
         }
 
         function add_50(id) {
-            addToRoute(id, 50);
+            addRouteDetail(id, 50);
         }
 
         //==========================
 
-        function addToCurrentRoute(routeId, deliveryOrderDetailId, qty) {
+        function postRouteDetail(routeId, orderDetail, qty) {
 
             $.ajax({
-                url: urlPostRouteDtetail + '/' + routeId + '/' + deliveryOrderDetailId + '/' + qty,
+                url: urlPostRouteDtetail + '/' + routeId + '/' + orderDetail.id + '/' + qty,
                 type: "POST",
                 success: function () {
-                    updateOrderDetails();
-                    updateRouteList();
+                    //updateOrderDetails();
+                    //updateRouteList();
+                    console.log('Added successfully!');
+                    modifyRouteDetail(routeId, orderDetail, qty);
                 }
             })
-
-        }
-
-        function logMapElements(value, key, map) {
-            console.log(key);
-            console.log(value);
-        }
-
-
-        function getRouteDetailTagId(routeId, odId) {
-
-            console.log("niiiikkkkk");
-
-            rd_map.set(1, 10);
-
-            rd_map.forEach(logMapElements);
 
         }
 
@@ -138,10 +124,10 @@
             $('#getData').click(function () {
                 updateOrderDetails();
                 updateRouteList();
+            })
 
+            $('#testbtn').click(function () {
                 getRouteDetailTagId(getRouteId(), 133);
-
-
             })
 
             $('#createNewRoute').click(function () {

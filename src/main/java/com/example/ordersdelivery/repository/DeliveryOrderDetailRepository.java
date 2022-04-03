@@ -19,7 +19,7 @@ public interface DeliveryOrderDetailRepository extends JpaRepository<DeliveryOrd
 
     @Query(nativeQuery = true, value = "select _dod.id as id, _dod.do_id as deliveryOrderId, _do.ext_order_id as deliveryOrderExtOrderId, p.name as productName, \n" +
             "_dod.qty as qty,\n" +
-            "_dod.qty - rd.qty as remain\n" +
+            "_dod.qty - (case when rd.qty is null then 0 else rd.qty end) as remain\n" +
             "from deliveryorderdetail _dod\n" +
             "left join deliveryorder _do on _dod.do_id = _do.id\n" +
             "left join product p on p.id = _dod.product_id\n" +
