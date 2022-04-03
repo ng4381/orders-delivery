@@ -1,3 +1,4 @@
+
 function updateRouteList() {
 
     var route_detail_id = 0;
@@ -25,7 +26,8 @@ function updateRouteList() {
                 var pr_route_detail_id = "rd_" + route_detail_id;
 
                 htmlTr = '<tr id="' + pr_route_detail_id + '">';
-                htmlTr += '<td>' + element.productName + '</td>';
+                //htmlTr += '<td>' + element.productName  + '</td>';
+                htmlTr += '<td>----</td>';
                 htmlTr += '<td>' + element.qty + '</td>';
 
                 htmlTr += '<td class="text-end"><button onclick="sub_1(' + route_detail_id + ')" type="button" class="btn btn-outline-danger btn-sm">-1</button>'
@@ -37,15 +39,17 @@ function updateRouteList() {
                 $('#' + id_route).append(htmlTr);
                 $('#' + pr_route_detail_id).val(element);
 
+                //rd_map.set(pr_route_detail_id, element);
+
             });
         })
 
     })
     .done(function () {
-
+        
     });
-}
 
+}
 
 function getRouteId() {
     return $("input[type='radio']:checked").val();

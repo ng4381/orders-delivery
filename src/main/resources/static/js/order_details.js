@@ -23,7 +23,7 @@ function updateOrderDetails() {
                 + '<td>' + v.deliveryOrderExtOrderId + '</td>'
                 + '<td>' + v.productName + '</td>'
                 + '<td>' + v.qty + '</td>'
-                + '<td> - </td>'
+                + '<td>' + v.remain + '</td>'
                 + '<td class="text-end">'
                 + '<button onclick="add_1(' + i + ')" type="button" class="btn btn-outline-primary btn-sm">+1</button>'
                 + '<button onclick="add_10(' + i + ')" type="button" class="btn btn-outline-primary btn-sm">+10</button>'

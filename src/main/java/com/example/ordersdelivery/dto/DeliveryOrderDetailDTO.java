@@ -6,6 +6,7 @@ public interface DeliveryOrderDetailDTO {
     String getDeliveryOrderExtOrderId();
     String getProductName();
     int getQty();
+    int getRemain();
 
 }
 

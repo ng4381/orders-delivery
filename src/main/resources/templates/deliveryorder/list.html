@@ -18,6 +18,8 @@
 
     <div class="container">
 
+        <p id="mylog"></p>
+
         <div class="row">
 
             <div>
@@ -51,12 +53,15 @@
     </div>
 
     <script type="text/javascript" th:src="@{/js/urls.js}"></script>
-    <script type="text/javascript" th:src="@{/js/routes.js}"></script>
+<!--    <script type="text/javascript" th:src="@{/js/routes.js}"></script>-->
+    <script type="text/javascript" src="/js/routes.js"></script>
     <script type="text/javascript" th:src="@{/js/order_details.js}"></script>
 
     <script>
 
+        console.log("111222333");
 
+        var rd_map = new Map();
 
         //==========================
 
@@ -97,7 +102,7 @@
             addToRoute(id, 50);
         }
 
-         //==========================
+        //==========================
 
         function addToCurrentRoute(routeId, deliveryOrderDetailId, qty) {
 
@@ -112,11 +117,31 @@
 
         }
 
+        function logMapElements(value, key, map) {
+            console.log(key);
+            console.log(value);
+        }
+
+
+        function getRouteDetailTagId(routeId, odId) {
+
+            console.log("niiiikkkkk");
+
+            rd_map.set(1, 10);
+
+            rd_map.forEach(logMapElements);
+
+        }
+
         $(document).ready(function () {
 
             $('#getData').click(function () {
                 updateOrderDetails();
                 updateRouteList();
+
+                getRouteDetailTagId(getRouteId(), 133);
+
+
             })
 
             $('#createNewRoute').click(function () {
