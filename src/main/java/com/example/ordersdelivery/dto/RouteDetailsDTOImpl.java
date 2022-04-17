@@ -67,4 +67,19 @@ public class RouteDetailsDTOImpl implements RouteDetailsDTO{
     public int getQty() {
         return qty;
     }
+
+    @Override
+    public Long getTransportId() {
+        return null;
+    }
+
+    @Override
+    public String getTransportType() {
+        return null;
+    }
+
+    @Override
+    public Long getTransportVolume() {
+        return null;
+    }
 }

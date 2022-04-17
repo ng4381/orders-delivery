@@ -3,10 +3,7 @@ package com.example.ordersdelivery.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "transport")
@@ -19,4 +16,13 @@ public class Transport {
 
     private String number;
     private String type;
+
+    @Column(name = "H")
+    private Long H;
+    @Column(name = "W")
+    private Long W;
+    @Column(name = "L")
+    private Long L;
+    @Column(name = "volume")
+    private double volume;
 }

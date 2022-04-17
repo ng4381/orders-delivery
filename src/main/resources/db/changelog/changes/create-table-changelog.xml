@@ -228,4 +228,22 @@ http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibas
 
     </changeSet>
 
+    <changeSet id="112" author="Nikita">
+        <addColumn tableName="transport" >
+            <column name="H"
+                    type="int"/>
+            <column name="W"
+                    type="int" />
+            <column name="L"
+                    type="int" />
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="113" author="Nikita">
+        <addColumn tableName="transport" >
+            <column name="volume"
+                    type="numeric(10,2)"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

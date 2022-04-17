@@ -9,6 +9,10 @@ import java.util.stream.Collectors;
 @Data
 public class RouteDTO {
     private Long routeId;
+    private Long transportId;
+    private String transportType;
+    private Long transportVolume;
+    private Long transportVolumeRemain;
     private List<RouteDetailsDTOImpl> routeDetails;
     private List<RouteDeliveryPointDTO> routeDeliveryPoints;
 

@@ -41,6 +41,10 @@ public class RouteDetailService {
                 .collect(Collectors.groupingBy(RouteDetailsDTO::getRouteId))
                 .forEach((aLong, routeDetailsDTOS) -> {
                     RouteDTO routeDTO = new RouteDTO();
+                    routeDTO.setTransportId(0L);
+                    routeDTO.setTransportType("");
+                    routeDTO.setTransportVolume(0L);
+                    routeDTO.setTransportVolumeRemain(0L);
                     routeDTO.setRouteId(aLong);
                     routeDTO.setRouteDetails(routeDetailsDTOS);
                     routeDTO.setRouteDeliveryPoints(routeDeliveryPointService.getRouteDeliveryPointList(aLong));

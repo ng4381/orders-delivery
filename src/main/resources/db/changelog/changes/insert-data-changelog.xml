@@ -14,4 +14,14 @@ http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibas
         </insert>
     </changeSet>
 
+    <changeSet id="ins-101" author="Nikita">
+        <insert tableName="transport">
+            <column name="id" value="2"/>
+            <column name="number" value="x000xx 00"/>
+            <column name="type" value="Тентовый 20т"/>
+            <column name="volume" value="82"/>
+        </insert>
+    </changeSet>
+
+
 </databaseChangeLog>

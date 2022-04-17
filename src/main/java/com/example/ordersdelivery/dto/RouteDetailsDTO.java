@@ -9,4 +9,7 @@ public interface RouteDetailsDTO {
     Long getDeliveryOrderExtOrderId();
     String getProductName();
     int getQty();
+    Long getTransportId();
+    String getTransportType();
+    Long getTransportVolume();
 }
