@@ -18,9 +18,11 @@ public class DeliveryOrderDetail {
     @JoinColumn(name = "do_id")
     private DeliveryOrder deliveryOrder;
 
+    /*
     @ManyToOne
     @JoinColumn(name = "product_id")
-    private Product product;
+     */
+    private Long product_id;
 
     private int qty;
 

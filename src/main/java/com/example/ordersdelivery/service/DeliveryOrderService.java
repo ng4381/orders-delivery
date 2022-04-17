@@ -33,13 +33,18 @@ public class DeliveryOrderService {
 
         for(DeliveryOrderDTO.DeliveryOrderDetailDTO dod : deliveryOrderDTO.getDeliveryOrderDetails()) {
 
-            Product product = productService.getProduct(dod.getProduct());
+
 
             log.info("Creating delivery order detail ...");
             DeliveryOrderDetail deliveryOrderDetail = new DeliveryOrderDetail();
             deliveryOrderDetail.setDeliveryOrder(deliveryOrder);
             deliveryOrderDetail.setQty(dod.getQty());
-            deliveryOrderDetail.setProduct( product );
+
+            //Product product = productService.getProduct(dod.getProduct());
+            //deliveryOrderDetail.setProduct( product );
+
+            deliveryOrderDetail.setProduct_id(dod.getProduct().getId());
+
             deliveryOrderDetailService.save(deliveryOrderDetail);
             log.info("Delivery order detail created");
         }

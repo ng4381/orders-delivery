@@ -197,4 +197,35 @@ http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibas
                        tableName="route"/>
     </changeSet>
 
+    <changeSet id="cr=109" author="Nikita">
+        <dropForeignKeyConstraint  baseTableName="deliveryorderdetail"
+                                   constraintName="fk_deliveryorderdetail_product"/>
+    </changeSet>
+
+    <changeSet id="cr=110" author="Nikita">
+        <dropForeignKeyConstraint  baseTableName="deliveryorderdetail"
+                                   constraintName="FKjhvcnxwbcjxgs9kagdmstyw80"/>
+    </changeSet>
+
+
+
+    <changeSet id="cr=111" author="Nikita">
+
+        <createTable tableName="routedeliverypoint">
+
+            <column name="id" type="int">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column name="delivery_to" type="varchar(250)"/>
+            <column name="route_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_routedeliverypoint_route" references="route(id)"/>
+            </column>
+
+        </createTable>
+
+        <addAutoIncrement tableName="routedeliverypoint" columnName="id" columnDataType="bigint" startWith="1" incrementBy="1"/>
+
+    </changeSet>
+
 </databaseChangeLog>

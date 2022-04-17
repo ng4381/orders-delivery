@@ -13,10 +13,12 @@ public class KafkaConsumerService {
 
     private final DeliveryOrderService deliveryOrderService;
 
+    /*
     @KafkaListener(topics = "TestTopic", groupId = "group_id")
     public void consume(DeliveryOrderDTO deliveryOrderDTO) {
         log.info("kafka message = " + deliveryOrderDTO);
         deliveryOrderService.createDeliveryOrder(deliveryOrderDTO);
     }
+     */
 
 }
