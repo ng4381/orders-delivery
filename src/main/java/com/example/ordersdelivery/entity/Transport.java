@@ -24,5 +24,5 @@ public class Transport {
     @Column(name = "L")
     private Long L;
     @Column(name = "volume")
-    private double volume;
+    private Double volume;
 }

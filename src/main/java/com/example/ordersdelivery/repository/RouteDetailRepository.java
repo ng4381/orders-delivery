@@ -15,7 +15,7 @@ public interface RouteDetailRepository extends JpaRepository<RouteDetail, Long> 
             "dod.do_id as deliveryOrderId, \n" +
             "od.ext_order_id as deliveryOrderExtOrderId, \n" +
             "CASE WHEN p.name IS NOT NULL THEN p.name ELSE '(empty)' END as productName, \n" +
-            "CASE WHEN rd.qty IS NOT NULL THEN rd.qty ELSE 0 END as qty \n" +
+            "CASE WHEN rd.qty IS NOT NULL THEN rd.qty ELSE 0 END as qty, \n" +
             "t.id as transportId, \n" +
             "t.type as transportType, \n" +
             "CASE WHEN t.volume IS NOT NULL THEN t.volume ELSE 0 END as transportVolume \n" +

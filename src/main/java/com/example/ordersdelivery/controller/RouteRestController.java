@@ -34,6 +34,7 @@ public class RouteRestController {
         return routeDetailService.getAllRouteDetailsGroupedByRoutes();
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/routes/create")
     public ResponseEntity<HttpStatus> createRoute() {
         routeService.createRoute();

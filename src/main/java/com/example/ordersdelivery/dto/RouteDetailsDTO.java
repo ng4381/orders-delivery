@@ -11,5 +11,5 @@ public interface RouteDetailsDTO {
     int getQty();
     Long getTransportId();
     String getTransportType();
-    Long getTransportVolume();
+    double getTransportVolume();
 }

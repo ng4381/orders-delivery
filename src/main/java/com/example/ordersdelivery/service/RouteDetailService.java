@@ -1,9 +1,6 @@
 package com.example.ordersdelivery.service;
 
-import com.example.ordersdelivery.dto.DeliveryOrderDetailDTOImpl;
-import com.example.ordersdelivery.dto.RouteDTO;
-import com.example.ordersdelivery.dto.RouteDetailsDTO;
-import com.example.ordersdelivery.dto.RouteDetailsDTOImpl;
+import com.example.ordersdelivery.dto.*;
 import com.example.ordersdelivery.entity.DeliveryOrderDetail;
 import com.example.ordersdelivery.entity.Route;
 import com.example.ordersdelivery.entity.RouteDetail;
@@ -13,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,19 +31,25 @@ public class RouteDetailService {
                 .map(routeDetailsDTO -> new RouteDetailsDTOImpl(routeDetailsDTO))
                 .collect(Collectors.toList());
 
+
+        HashMap<Long, RouteDTO> routeDTOHashMap = new HashMap<>();
+
         for( RouteDetailsDTOImpl rd : routeDetailsDTOImplList) {
-            rd.setProductName( productService.getProductNameFromProductServiceById(rd.getProductId()) );
+            ProductDto productDto = productService.getProductFromProductServiceById(rd.getProductId());
+            rd.setProductName( productDto.getName() );
+            rd.setProductVolume(productDto.getVolume());
+
+            routeDTOHashMap.putIfAbsent(rd.getRouteId(), new RouteDTO(rd));
+            RouteDTO routeDTO = routeDTOHashMap.get(rd.getRouteId());
+            routeDTO.setTotalLoadVolume( routeDTO.getTotalLoadVolume() + rd.getQty() * rd.getProductVolume() );
         }
 
+        //TODO
         routeDetailsDTOImplList.stream()
                 .collect(Collectors.groupingBy(RouteDetailsDTO::getRouteId))
                 .forEach((aLong, routeDetailsDTOS) -> {
-                    RouteDTO routeDTO = new RouteDTO();
-                    routeDTO.setTransportId(0L);
-                    routeDTO.setTransportType("");
-                    routeDTO.setTransportVolume(0L);
-                    routeDTO.setTransportVolumeRemain(0L);
-                    routeDTO.setRouteId(aLong);
+                    RouteDTO routeDTO = routeDTOHashMap.get(aLong);
+                    routeDTO.setTransportVolumeRemain();
                     routeDTO.setRouteDetails(routeDetailsDTOS);
                     routeDTO.setRouteDeliveryPoints(routeDeliveryPointService.getRouteDeliveryPointList(aLong));
 

@@ -13,7 +13,13 @@ public class RouteDetailsDTOImpl implements RouteDetailsDTO{
     private Long deliveryOrderExtOrderId;
 
     private String productName;
+    private double productVolume;
     private int qty;
+
+    private Long transportId;
+    private String transportType;
+    private double transportVolume;
+
 
     public RouteDetailsDTOImpl(RouteDetailsDTO routeDetailsDTO) {
         this.routeId = routeDetailsDTO.getRouteId();
@@ -26,6 +32,10 @@ public class RouteDetailsDTOImpl implements RouteDetailsDTO{
 
         this.productName = routeDetailsDTO.getProductName();
         this.qty = routeDetailsDTO.getQty();
+
+        this.transportId = routeDetailsDTO.getTransportId();
+        this.transportType = routeDetailsDTO.getTransportType();
+        this.transportVolume = routeDetailsDTO.getTransportVolume();
     }
 
     @Override
@@ -70,16 +80,20 @@ public class RouteDetailsDTOImpl implements RouteDetailsDTO{
 
     @Override
     public Long getTransportId() {
-        return null;
+        return transportId;
     }
 
     @Override
     public String getTransportType() {
-        return null;
+        return transportType;
     }
 
     @Override
-    public Long getTransportVolume() {
-        return null;
+    public double getTransportVolume() {
+        return transportVolume;
+    }
+
+    public double getProductVolume() {
+        return productVolume;
     }
 }

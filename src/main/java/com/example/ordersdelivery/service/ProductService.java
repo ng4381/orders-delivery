@@ -5,12 +5,10 @@ import com.example.ordersdelivery.entity.Product;
 import com.example.ordersdelivery.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.common.protocol.types.Field;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Optional;
@@ -60,6 +58,14 @@ public class ProductService {
     }
 
     public String getProductNameFromProductServiceById(Long id) {
+
+        ProductDto productDto = getProductFromProductServiceById(id);
+
+        return productDto.getName();
+
+    }
+
+    public ProductDto getProductFromProductServiceById(Long id) {
         String url = "http://localhost:8076/products/get/{id}";
         ResponseEntity<ProductDto> response = null;
         try {
@@ -68,24 +74,14 @@ public class ProductService {
             if (ex.getStatusCode() != HttpStatus.NOT_FOUND) {
                 throw ex;
             }
-            return "(product not found)";
+            ProductDto productDto = new ProductDto();
+            productDto.setName("(not found)");
+            productDto.setVolume(0);
+            return productDto;
         }
 
-        return response.getBody().getName();
+        return response.getBody();
 
-
-
-        /*
-        ProductDto productDto = restTemplate.getForObject(
-               "http://localhost:8076/products/get/{id}", ProductDto.class, id);
-
-        if (productDto == null) {
-            return "(not found)";
-        }
-
-        return productDto.getName();
-
-         */
     }
 
 }
