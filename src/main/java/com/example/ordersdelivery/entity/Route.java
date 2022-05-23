@@ -2,12 +2,16 @@ package com.example.ordersdelivery.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ResultCheckStyle;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "route")
+@SQLDelete(sql = "UPDATE route SET state='DELETE' WHERE id = ?", check = ResultCheckStyle.COUNT)
 @Getter
 @Setter
 public class Route {

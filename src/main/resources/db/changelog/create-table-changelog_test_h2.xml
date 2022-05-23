@@ -37,56 +37,56 @@ http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibas
         <addForeignKeyConstraint baseTableName="mylog" baseColumnNames="type_id" constraintName="mylog_type_id_fk" referencedTableName="mylogtype" referencedColumnNames="id"/>
     </changeSet>
 
-    <changeSet id="cr=102" author="Nikita">
+<!--    <changeSet id="cr=102" author="Nikita">-->
 
-        <createTable tableName="product">
+<!--        <createTable tableName="product">-->
 
-            <column name="id" type="int">
-                <constraints primaryKey="true"/>
-            </column>
+<!--            <column name="id" type="int">-->
+<!--                <constraints primaryKey="true"/>-->
+<!--            </column>-->
 
-            <column name="name" type="varchar(250)"/>
-            <column name="H" type="int"/>
-            <column name="W" type="int"/>
-            <column name="L" type="int"/>
+<!--            <column name="name" type="varchar(250)"/>-->
+<!--            <column name="H" type="int"/>-->
+<!--            <column name="W" type="int"/>-->
+<!--            <column name="L" type="int"/>-->
 
-        </createTable>
+<!--        </createTable>-->
 
-        <createTable tableName="deliveryorder">
-            <column name="id" type="int">
-                <constraints primaryKey="true"/>
-            </column>
+<!--        <createTable tableName="deliveryorder">-->
+<!--            <column name="id" type="int">-->
+<!--                <constraints primaryKey="true"/>-->
+<!--            </column>-->
 
-            <column name="extOrderId" type="int"/>
-            <column name="ETA" type="int"/>
-            <column name="ETD" type="int"/>
+<!--            <column name="extOrderId" type="int"/>-->
+<!--            <column name="ETA" type="int"/>-->
+<!--            <column name="ETD" type="int"/>-->
 
-        </createTable>
+<!--        </createTable>-->
 
-        <createTable tableName="deliveryorderdetail">
-            <column name="id" type="int">
-                <constraints primaryKey="true"/>
-            </column>
+<!--        <createTable tableName="deliveryorderdetail">-->
+<!--            <column name="id" type="int">-->
+<!--                <constraints primaryKey="true"/>-->
+<!--            </column>-->
 
-            <column name="do_id" type="int">
-                <constraints nullable="false" foreignKeyName="fk_deliveryorderdetail_deliveryorder" references="deliveryorder(id)" />
-            </column>
-            <column name="product_id" type="int">
-                <constraints nullable="false" foreignKeyName="fk_deliveryorderdetail_product" references="product(id)"/>
-            </column>
-            <column name="qty" type="int"/>
+<!--            <column name="do_id" type="int">-->
+<!--                <constraints nullable="false" foreignKeyName="fk_deliveryorderdetail_deliveryorder" references="deliveryorder(id)" />-->
+<!--            </column>-->
+<!--            <column name="product_id" type="int">-->
+<!--                <constraints nullable="false" foreignKeyName="fk_deliveryorderdetail_product" references="product(id)"/>-->
+<!--            </column>-->
+<!--            <column name="qty" type="int"/>-->
 
-        </createTable>
+<!--        </createTable>-->
 
-    </changeSet>
+<!--    </changeSet>-->
 
-    <changeSet id="cr=103" author="Nikita">
-        <dropTable tableName="product"/>
-    </changeSet>
+<!--    <changeSet id="cr=103" author="Nikita">-->
+<!--        <dropTable tableName="product"/>-->
+<!--    </changeSet>-->
 
-    <changeSet id="cr=104" author="Nikita">
-        <dropTable tableName="deliveryorder"/>
-    </changeSet>
+<!--    <changeSet id="cr=104" author="Nikita">-->
+<!--        <dropTable tableName="deliveryorder"/>-->
+<!--    </changeSet>-->
 
     <changeSet id="cr=105" author="Nikita">
 
@@ -202,10 +202,10 @@ http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibas
                                    constraintName="fk_deliveryorderdetail_product"/>
     </changeSet>
 
-    <changeSet id="cr=110" author="Nikita">
-        <dropForeignKeyConstraint  baseTableName="deliveryorderdetail"
-                                   constraintName="FKjhvcnxwbcjxgs9kagdmstyw80"/>
-    </changeSet>
+<!--    <changeSet id="cr=110" author="Nikita">-->
+<!--        <dropForeignKeyConstraint  baseTableName="deliveryorderdetail"-->
+<!--                                   constraintName="FKjhvcnxwbcjxgs9kagdmstyw80"/>-->
+<!--    </changeSet>-->
 
 
 
@@ -243,13 +243,6 @@ http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibas
         <addColumn tableName="transport" >
             <column name="volume"
                     type="numeric(10,2)"/>
-        </addColumn>
-    </changeSet>
-
-    <changeSet id="114" author="Nikita">
-        <addColumn tableName="route" >
-            <column name="state"
-                    type="varchar(250)"/>
         </addColumn>
     </changeSet>
 

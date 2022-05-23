@@ -51,7 +51,7 @@ public class RouteDetailService {
                     RouteDTO routeDTO = routeDTOHashMap.get(aLong);
                     routeDTO.setTransportVolumeRemain();
                     routeDTO.setRouteDetails(routeDetailsDTOS);
-                    routeDTO.setRouteDeliveryPoints(routeDeliveryPointService.getRouteDeliveryPointList(aLong));
+                    routeDTO.setRouteDeliveryPoints(routeDeliveryPointService.getRouteDeliveryPointByRouteId(aLong));
 
                     routeDTOList.add(routeDTO);
                 });
@@ -74,7 +74,13 @@ public class RouteDetailService {
             }else {
                 log.info("Change qty in RouteDetail current qty = " + routeDetail.getQty());
                 routeDetail.setQty(routeDetail.getQty() + qty);
-                updateRouteDetail(routeDetail);
+                if(routeDetail.getQty() > 0) {
+                    log.info("updating qty in order detail... routeId " + routeId + " order detail id = " + deliveryOrderDetailId);
+                    updateRouteDetail(routeDetail);
+                } else {
+                    log.info("deleting route detail... routeId" + routeId + " order detail id = " + deliveryOrderDetailId);
+                    routeDetailRepository.delete(routeDetail);
+                }
             }
     }
 
@@ -88,5 +94,9 @@ public class RouteDetailService {
 
     public RouteDetail updateRouteDetail(RouteDetail routeDetail) {
         return routeDetailRepository.save(routeDetail);
+    }
+
+    public List<RouteDetail> getRouteDetailByRouteId(Long id) {
+        return routeDetailRepository.getRouteDetailByRouteId(id);
     }
 }

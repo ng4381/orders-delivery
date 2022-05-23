@@ -24,9 +24,12 @@ public interface RouteDetailRepository extends JpaRepository<RouteDetail, Long> 
             "left join deliveryorderdetail dod on dod.id = rd.deliveryorderdetail_id \n" +
             "left join deliveryorder od on od.id = dod.do_id \n" +
             "left join product p on p.id = dod.product_id \n" +
-            "left join transport t on t.id=r.transport_id;")
+            "left join transport t on t.id=r.transport_id \n" +
+            "where IFNULL(r.state, '') <> 'DELETE';")
     List<RouteDetailsDTO> getAllRoutesDetails();
 
     @Query(value = "SELECT rd FROM RouteDetail rd WHERE rd.route.id=?1 AND rd.deliveryOrderDetail.id=?2")
     RouteDetail getByRouterIdAndDeliveryOrderDetailId(Long routeId, Long deliveryOrderId);
+
+    List<RouteDetail> getRouteDetailByRouteId(Long routeId);
 }

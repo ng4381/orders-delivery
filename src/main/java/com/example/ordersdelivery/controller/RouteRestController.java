@@ -2,6 +2,7 @@ package com.example.ordersdelivery.controller;
 
 import com.example.ordersdelivery.dto.RouteDTO;
 import com.example.ordersdelivery.dto.RouteDeliveryPointDTO;
+import com.example.ordersdelivery.dto.RouteDescDTO;
 import com.example.ordersdelivery.entity.Route;
 import com.example.ordersdelivery.entity.RouteDeliveryPoint;
 import com.example.ordersdelivery.service.RouteDeliveryPointService;
@@ -26,6 +27,12 @@ public class RouteRestController {
     @GetMapping("/routes")
     public List<Route> getRoutesList() {
         return routeService.getRoutesList();
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/routes/desc/{id}")
+    public RouteDescDTO getRouteDesc(@PathVariable Long id) {
+        return routeService.getRouteDesc(id);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
@@ -59,7 +66,19 @@ public class RouteRestController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/routes/route-points/delete/{id}")
+    public ResponseEntity<HttpStatus> deleteRouteDeliveryPointDTOList(@PathVariable Long id) {
+        routeDeliveryPointService.deleteRouteDeliveryPoint(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
-
+    @CrossOrigin(origins = "http://localhost:3000")
+    @DeleteMapping("/routes/delete/{id}")
+    public ResponseEntity<HttpStatus> deleteRoute(@PathVariable Long id) {
+        log.info("deleting route " + id + "...");
+        routeService.deleteRoute(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }

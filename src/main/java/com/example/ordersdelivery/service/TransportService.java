@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,4 +23,18 @@ public class TransportService {
         }
         return optionalTransport.get();
     }
+
+    public List<Transport> getTransports() {
+        return transportRepository.findAll();
+    }
+
+    public Transport getTransportById(Long  id) {
+        Optional<Transport> optionalTransport = transportRepository.findById(id);
+        if(optionalTransport.isEmpty()) {
+            log.warn("WARNING! Transport with id = " + id + " was not found!");
+            return null;
+        }
+        return optionalTransport.get();
+    }
+
 }

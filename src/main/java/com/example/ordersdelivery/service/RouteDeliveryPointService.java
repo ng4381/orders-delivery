@@ -17,7 +17,7 @@ public class RouteDeliveryPointService {
     private final RouteDeliveryPointRepository routeDeliveryPointRepository;
     private final RouteService routeService;
 
-    public List<RouteDeliveryPoint> getRouteDeliveryPointList(Long id) {
+    public List<RouteDeliveryPoint> getRouteDeliveryPointByRouteId(Long id) {
         return routeDeliveryPointRepository.getRouteDeliveryPointByRouteId(id);
     }
 
@@ -33,5 +33,10 @@ public class RouteDeliveryPointService {
         routeDeliveryPoint.setRoute(routeService.getRouteById(deliveryPointDTO.getRoute_id()));
         routeDeliveryPoint.setDelivery_to(deliveryPointDTO.getDelivery_to());
         routeDeliveryPointRepository.save(routeDeliveryPoint);
+    }
+
+
+    public void deleteRouteDeliveryPoint(Long id) {
+        routeDeliveryPointRepository.deleteById(id);
     }
 }
