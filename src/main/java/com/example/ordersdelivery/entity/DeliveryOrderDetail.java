@@ -1,7 +1,6 @@
 package com.example.ordersdelivery.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -9,6 +8,8 @@ import javax.persistence.*;
 @Table(name = "deliveryorderdetail")
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
 public class DeliveryOrderDetail {
     @Id
     @GeneratedValue

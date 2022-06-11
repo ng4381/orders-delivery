@@ -2,10 +2,14 @@ package com.example.ordersdelivery.dto;
 
 import com.example.ordersdelivery.entity.RouteDeliveryPoint;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class RouteDeliveryPointDTO {
     private Long id;
     private Long route_id;

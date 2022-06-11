@@ -3,28 +3,30 @@ package com.example.ordersdelivery.service;
 import com.example.ordersdelivery.dto.RouteDescDTO;
 import com.example.ordersdelivery.entity.Route;
 import com.example.ordersdelivery.entity.Transport;
-import com.example.ordersdelivery.exception.RouteDeliveryPointsIsNotEmptyException;
 import com.example.ordersdelivery.exception.RouteDetailsIsNotEmptyException;
 import com.example.ordersdelivery.exception.RouteNotFoundException;
+import com.example.ordersdelivery.mapper.RouteDescMapper;
 import com.example.ordersdelivery.repository.RouteDeliveryPointRepository;
 import com.example.ordersdelivery.repository.RouteDetailRepository;
 import com.example.ordersdelivery.repository.RouteRepository;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @Slf4j
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class RouteService {
     private final RouteRepository routeRepository;
     private final RouteDetailRepository routeDetailRepository;
     private final RouteDeliveryPointRepository routeDeliveryPointRepository;
     private final TransportService transportService;
+    private final RouteDescMapper routeDescMapper;
 
     public List<Route> getRoutesList() {
         return routeRepository.findAll();
@@ -36,30 +38,16 @@ public class RouteService {
         return routeRepository.save(route);
     }
 
-    public RouteDescDTO getRouteDesc(Long id){
-        RouteDescDTO routeDescDTO = new RouteDescDTO();
-        Optional<Route> optionalRoute = routeRepository.findById(id);
-        if(optionalRoute.isEmpty()) {
-            throw new RouteNotFoundException("Route with id " + id + " was not found!");
-        }
+    public RouteDescDTO getRouteDesc(Long id) {
+        Route route = routeRepository.findById(id)
+                .orElseThrow(() -> new RouteNotFoundException("Route with id " + id + " was not found!"));
 
-        Route route = optionalRoute.get();
-        routeDescDTO.setRouteId(route.getId());
-        routeDescDTO.setTransportId(route.getTransport().getId());
-        routeDescDTO.setTransportType(route.getTransport().getType());
-        routeDescDTO.setFrom(route.getFrom());
-        routeDescDTO.setETA(route.getETA());
-        routeDescDTO.setETD(route.getETD());
-
-        return routeDescDTO;
+        return routeDescMapper.mapToDto(route);
     }
 
     public Route getRouteById(Long id) {
-        Optional<Route> optionalRoute = routeRepository.findById(id);
-        if (optionalRoute.isEmpty()) {
-            return null;
-        }
-        return optionalRoute.get();
+        return routeRepository.findById(id)
+                .orElseThrow(() -> new RouteNotFoundException("Route not found id: " + id));
     }
 
     public void updateTransport(Long id, Long routeId) {
@@ -74,7 +62,7 @@ public class RouteService {
     public void deleteRoute(Long routeId) {
 
 
-        if(!routeDetailRepository.getRouteDetailByRouteId(routeId).isEmpty()) {
+        if (!routeDetailRepository.getRouteDetailByRouteId(routeId).isEmpty()) {
             log.info("EXCEPTION!!!!! Route id=" + routeId + " details is not empty");
             throw new RouteDetailsIsNotEmptyException("Route id=" + routeId + " details is not empty");
         }
@@ -85,9 +73,6 @@ public class RouteService {
         }
 
          */
-
-
-
 
         routeRepository.deleteById(routeId);
         log.info("Route id=" + routeId + " deleted");

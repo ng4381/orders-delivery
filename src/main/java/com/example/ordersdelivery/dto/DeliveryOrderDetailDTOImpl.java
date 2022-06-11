@@ -1,8 +1,14 @@
 package com.example.ordersdelivery.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class DeliveryOrderDetailDTOImpl implements DeliveryOrderDetailDTO{
 
     private Long id;

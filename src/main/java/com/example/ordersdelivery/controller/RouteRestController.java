@@ -61,7 +61,7 @@ public class RouteRestController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/routes/route-points")
-    public ResponseEntity<HttpStatus> getRouteDeliveryPointDTOList(@RequestBody RouteDeliveryPointDTO deliveryPointDTO) {
+    public ResponseEntity<HttpStatus> createRouteDeliveryPoint(@RequestBody RouteDeliveryPointDTO deliveryPointDTO) {
         routeDeliveryPointService.createRouteDeliveryPoint(deliveryPointDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
